@@ -1,0 +1,109 @@
+#+TITLE: APICheck: The DevSecOps Toolset for REST APIs
+
+* Links:
+  - https://github.com/BBVA/apicheck
+  - https://github.com/BBVA/apicheck/projects/1
+  - https://apicheck.readthedocs.io/
+
+* Problema a resolver:
+
+  Un servicio Web es susceptible de exponer más información de la debida. Tal
+  situación debe detectarse lo antes posible para poder remediarla, idealmente
+  antes de que la response con información indebida llegue a su destino.
+
+* Solución del proyecto:
+
+  Crear un toolset que permita analizar las APIs expuestas, determinando si se
+  ajustan a su especificación.
+
+* Casos de uso:
+
+  - Un equipo que desarrolla un servicio Web se vería beneficiado de recibir
+  informes de vulnerabilidades en su API de manera integrada con su ciclo de CI.
+
+  - Un servicio Web configurado en modo debug queda expuesto, permitiendo el
+  acceso indebido a terceros. Se precisa un sistema que alerte y/o corrija tal
+  situación.
+
+* Características principales:
+
+  Puede integrarse en ciclos de CI/CD para analizar múltiples aspectos de la
+  integridad de un API.
+
+  Puede integrarse en el ciclo request/response para bloquear peticiones indebidas
+  al vuelo.
+
+* Architecture
+  [[./API_Test_Diagram.png]]
+
+
+* Use case                                                            :slide:
+
+  (multiple Web services behind an API gateway, which connects to the outside world)
+
+  (one of the Web services is misconfigured in debug mode, exposing a ~/debug~
+  endpoint, which grants access to all kinds of juicy data.)
+
+  (a malicious user can abuse this endpoint to gain access to a lot of sensitive data)
+
+* Detection of unsafe ~/debug~ endpoint                               :slide:
+
+  APICheck tool detecting the ~/debug~ endpoint and notifying of the issue.
+
+* OpenAPI spec as Source of Truth                                     :slide:
+
+  APICheck tool can parse the OpenAPI spec for the Web service and compare it with
+  the running instance.  Any discrepancies will be reported by the tool.
+
+* No spec available; capture baseline to which perform comparisons    :slide:
+
+  - @ T_1, APICheck proxy is used to record a session against the Web service.
+    - The accessible API is then deduced and stored as a baseline.
+  - @ T_2, APICheck proxy is used to record another session against the Web service.
+    - The resulting accessible API is compared against the baseline.
+    - Any discrepancies are reported.
+
+* Offline use                                                         :slide:
+
+  - Suitable for integration in CI/CD workflows.
+  - Given a valid request to the Web service, a number of tools can test for
+    different kind of vulnerabilities, such as =SQL Injection=,
+    [[http://sqlmap.org/][sqlmap]], =XSS=, etc.
+
+* Online use                                                          :slide:
+
+  - Monitor the response before it reaches its destination, and block it if foul
+    play is detected.
+
+* Consistency checking of an API                                      :slide:
+
+  An APICheck tool can generate requests from the OpenAPI spec of an API,
+  looking systematically for corner cases, and being as exhaustive as needed
+  (parameterized mala baba).
+
+* Replay of baseline in production                                    :slide:
+
+  The baseline behaviour of a Web service can be obtained during the testing
+  phase, and the queries performed then can be replayed against the production
+  environment later, and check that the returned information is in line with
+  what's expected.
+
+* Tokenize request data on the fly                                    :slide:
+
+* Online analytics                                                    :slide:
+
+  APICheck tool that detects anomalous header in the request on the fly.
+
+* Forwarding to third-party tools                                     :slide:
+
+  APICheck tool that forwards req/res to =burp=/=zapp= without having to
+  duplicate the req/res.
+
+* APICheck is data-centric
+
+* To explore
+
+Multiple respones
+
+Send the same request to and endpoint and check that the response is maintained
+over time, e.g., ~/config~, so no changes to configuration go unnoticed.

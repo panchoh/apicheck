@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>APICheck: The DevSecOps Toolset for REST APIs</title>
+<!-- 2019-12-01 Sun 19:53 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Org-mode">
+
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+/* org mode styles on top of twbs */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-size: 18px;
+    margin-bottom: 105px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 101px;
+    background-color: #f5f5f5;
+}
+
+footer > div {
+    padding: 10px;
+}
+
+footer p {
+    margin: 0 0 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#table-of-contents {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+blockquote p {
+    font-size: 18px;
+}
+
+pre {
+    font-size: 16px;
+}
+
+.footpara {
+    display: inline-block;
+}
+
+figcaption {
+  font-size: 16px;
+  color: #666;
+  font-style: italic;
+  padding-bottom: 15px;
+}
+
+/* from twbs docs */
+
+.bs-docs-sidebar.affix {
+    position: static;
+}
+@media (min-width: 768px) {
+    .bs-docs-sidebar {
+        padding-left: 20px;
+    }
+}
+
+/* All levels of nav */
+.bs-docs-sidebar .nav > li > a {
+    display: block;
+    padding: 4px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
+}
+.bs-docs-sidebar .nav > li > a:hover,
+.bs-docs-sidebar .nav > li > a:focus {
+    padding-left: 19px;
+    color: #A1283B;
+    text-decoration: none;
+    background-color: transparent;
+    border-left: 1px solid #A1283B;
+}
+.bs-docs-sidebar .nav > .active > a,
+.bs-docs-sidebar .nav > .active:hover > a,
+.bs-docs-sidebar .nav > .active:focus > a {
+    padding-left: 18px;
+    font-weight: bold;
+    color: #A1283B;
+    background-color: transparent;
+    border-left: 2px solid #A1283B;
+}
+
+/* Nav: second level (shown on .active) */
+.bs-docs-sidebar .nav .nav {
+    display: none; /* Hide by default, but at >768px, show it */
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav > li > a:focus {
+    padding-left: 29px;
+}
+.bs-docs-sidebar .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav > .active:focus > a {
+    padding-left: 28px;
+    font-weight: 500;
+}
+
+/* Nav: third level (shown on .active) */
+.bs-docs-sidebar .nav .nav .nav {
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 40px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav .nav > li > a:focus {
+    padding-left: 39px;
+}
+.bs-docs-sidebar .nav .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav .nav > .active:focus > a {
+    padding-left: 38px;
+    font-weight: 500;
+}
+
+/* Show and affix the side nav when space allows it */
+@media (min-width: 992px) {
+    .bs-docs-sidebar .nav > .active > ul {
+        display: block;
+    }
+    /* Widen the fixed sidebar */
+    .bs-docs-sidebar.affix,
+    .bs-docs-sidebar.affix-bottom {
+        width: 213px;
+    }
+    .bs-docs-sidebar.affix {
+        position: fixed; /* Undo the static from mobile first approach */
+        top: 20px;
+    }
+    .bs-docs-sidebar.affix-bottom {
+        position: absolute; /* Undo the static from mobile first approach */
+    }
+    .bs-docs-sidebar.affix .bs-docs-sidenav,.bs-docs-sidebar.affix-bottom .bs-docs-sidenav {
+        margin-top: 0;
+        margin-bottom: 0
+    }
+}
+@media (min-width: 1200px) {
+    /* Widen the fixed sidebar again */
+    .bs-docs-sidebar.affix-bottom,
+    .bs-docs-sidebar.affix {
+        width: 263px;
+    }
+}
+</style>
+<script type="text/javascript">
+$(function() {
+    'use strict';
+
+    $('.bs-docs-sidebar li').first().addClass('active');
+
+    $(document.body).scrollspy({target: '.bs-docs-sidebar'});
+
+    $('.bs-docs-sidebar').affix();
+});
+</script>
+</head>
+<body>
+<div id="content" class="container">
+<div class="row"><div class="col-md-9"><h1 class="title">APICheck: The DevSecOps Toolset for REST APIs</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Links:</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li><a href="https://github.com/BBVA/apicheck">https://github.com/BBVA/apicheck</a>
+</li>
+<li><a href="https://apicheck.readthedocs.io/">https://apicheck.readthedocs.io/</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Problema a resolver:</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Un servicio Web es susceptible de exponer más información de la debida. Tal
+situación debe detectarse lo antes posible para poder remediarla, idealmente
+antes de que la response con información indebida llegue a su destino.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Solución del proyecto:</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Crear un toolset que permita analizar las APIs expuestas, determinando si se
+ajustan a su especificación.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Casos de uso:</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>Un equipo que desarrolla un servicio Web se vería beneficiado de recibir
+</li>
+</ul>
+<p>
+informes de vulnerabilidades en su API de manera integrada con su ciclo de CI.
+</p>
+
+<ul class="org-ul">
+<li>Un servicio Web configurado en modo debug queda expuesto, permitiendo el
+</li>
+</ul>
+<p>
+acceso indebido a terceros. Se precisa un sistema que alerte y/o corrija tal
+situación.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Características principales:</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Puede integrarse en ciclos de CI/CD para analizar múltiples aspectos de la
+integridad de un API.
+</p>
+
+<p>
+Puede integrarse en el ciclo request/response para bloquear peticiones indebidas
+al vuelo.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Architecture</h2>
+<div class="outline-text-2" id="text-6">
+
+<figure>
+<p><img src="./API_Test_Diagram.png" class="img-responsive" alt="API_Test_Diagram.png">
+</p>
+</figure>
+</div>
+</div>
+
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Use case&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-7">
+<p>
+(multiple Web services behind an API gateway, which connects to the outside world)
+</p>
+
+<p>
+(one of the Web services is misconfigured in debug mode, exposing a <code>/debug</code>
+endpoint, which grants access to all kinds of juicy data.)
+</p>
+
+<p>
+(a malicious user can abuse this endpoint to gain access to a lot of sensitive data)
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Detection of unsafe <code>/debug</code> endpoint&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-8">
+<p>
+APICheck tool detecting the <code>/debug</code> endpoint and notifying of the issue.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> OpenAPI spec as Source of Truth&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-9">
+<p>
+APICheck tool can parse the OpenAPI spec for the Web service and compare it with
+the running instance.  Any discrepancies will be reported by the tool.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> No spec available; capture baseline to which perform comparisons&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-10">
+<ul class="org-ul">
+<li>@ T<sub>1</sub>, APICheck proxy is used to record a session against the Web service.
+<ul class="org-ul">
+<li>The accessible API is then deduced and stored as a baseline.
+</li>
+</ul>
+</li>
+<li>@ T<sub>2</sub>, APICheck proxy is used to record another session against the Web service.
+<ul class="org-ul">
+<li>The resulting accessible API is compared against the baseline.
+</li>
+<li>Any discrepancies are reported.
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> Offline use&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-11">
+<ul class="org-ul">
+<li>Suitable for integration in CI/CD workflows.
+</li>
+<li>Given a valid request to the Web service, a number of tools can test for
+different kind of vulnerabilities, such as <code>SQL Injection</code>,
+<a href="http://sqlmap.org/">sqlmap</a>, <code>XSS</code>, etc.
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> Online use&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-12">
+<ul class="org-ul">
+<li>Monitor the response before it reaches its destination, and block it if foul
+play is detected.
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-13" class="outline-2">
+<h2 id="sec-13"><span class="section-number-2">13</span> Consistency checking of an API&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-13">
+<p>
+An APICheck tool can generate requests from the OpenAPI spec of an API,
+looking systematically for corner cases, and being as exhaustive as needed
+(parameterized mala baba).
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-14" class="outline-2">
+<h2 id="sec-14"><span class="section-number-2">14</span> Replay of baseline in production&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-14">
+<p>
+The baseline behaviour of a Web service can be obtained during the testing
+phase, and the queries performed then can be replayed against the production
+environment later, and check that the returned information is in line with
+what's expected.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-15" class="outline-2">
+<h2 id="sec-15"><span class="section-number-2">15</span> Tokenize request data on the fly&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+</div>
+
+<div id="outline-container-sec-16" class="outline-2">
+<h2 id="sec-16"><span class="section-number-2">16</span> Online analytics&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-16">
+<p>
+APICheck tool that detects anomalous header in the request on the fly.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-17" class="outline-2">
+<h2 id="sec-17"><span class="section-number-2">17</span> Forwarding to third-party tools&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-17">
+<p>
+APICheck tool that forwards req/res to <code>burp=/=zapp</code> without having to
+duplicate the req/res.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-18" class="outline-2">
+<h2 id="sec-18"><span class="section-number-2">18</span> APICheck is data-centric</h2>
+</div>
+
+<div id="outline-container-sec-19" class="outline-2">
+<h2 id="sec-19"><span class="section-number-2">19</span> To explore</h2>
+<div class="outline-text-2" id="text-19">
+<p>
+Multiple respones
+</p>
+
+<p>
+Send the same request to and endpoint and check that the response is maintained
+over time, e.g., <code>/config</code>, so no changes to configuration go unnoticed.
+</p>
+</div>
+</div>
+</div><div class="col-md-3"><nav id="table-of-contents">
+<div id="text-table-of-contents" class="bs-docs-sidebar">
+<ul class="nav">
+<li><a href="#sec-1">1. Links:</a></li>
+<li><a href="#sec-2">2. Problema a resolver:</a></li>
+<li><a href="#sec-3">3. Solución del proyecto:</a></li>
+<li><a href="#sec-4">4. Casos de uso:</a></li>
+<li><a href="#sec-5">5. Características principales:</a></li>
+<li><a href="#sec-6">6. Architecture</a></li>
+<li><a href="#sec-7">7. Use case</a></li>
+<li><a href="#sec-8">8. Detection of unsafe <code>/debug</code> endpoint</a></li>
+<li><a href="#sec-9">9. OpenAPI spec as Source of Truth</a></li>
+<li><a href="#sec-10">10. No spec available; capture baseline to which perform comparisons</a></li>
+<li><a href="#sec-11">11. Offline use</a></li>
+<li><a href="#sec-12">12. Online use</a></li>
+<li><a href="#sec-13">13. Consistency checking of an API</a></li>
+<li><a href="#sec-14">14. Replay of baseline in production</a></li>
+<li><a href="#sec-15">15. Tokenize request data on the fly</a></li>
+<li><a href="#sec-16">16. Online analytics</a></li>
+<li><a href="#sec-17">17. Forwarding to third-party tools</a></li>
+<li><a href="#sec-18">18. APICheck is data-centric</a></li>
+<li><a href="#sec-19">19. To explore</a></li>
+</ul>
+</div>
+</nav>
+</div></div></div>
+<footer id="postamble" class="">
+<div><p class="date">Created: 2019-12-01 Sun 19:53</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="http://orgmode.org">Org-mode</a> 9.2.6)</p>
+</div>
+</footer>
+</body>
+</html>
