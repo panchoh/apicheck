@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>APICheck: The DevSecOps Toolset for REST APIs</title>
-<!-- 2019-12-01 Sun 19:53 -->
+<!-- 2019-12-02 Mon 06:16 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
@@ -199,6 +199,8 @@ $(function() {
 <ul class="org-ul">
 <li><a href="https://github.com/BBVA/apicheck">https://github.com/BBVA/apicheck</a>
 </li>
+<li><a href="https://github.com/BBVA/apicheck/projects/1">https://github.com/BBVA/apicheck/projects/1</a>
+</li>
 <li><a href="https://apicheck.readthedocs.io/">https://apicheck.readthedocs.io/</a>
 </li>
 </ul>
@@ -264,7 +266,7 @@ al vuelo.
 </div>
 
 <div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6"><span class="section-number-2">6</span> Architecture</h2>
+<h2 id="sec-6"><span class="section-number-2">6</span> Arquitectura&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 <div class="outline-text-2" id="text-6">
 
 <figure>
@@ -276,57 +278,65 @@ al vuelo.
 
 
 <div id="outline-container-sec-7" class="outline-2">
-<h2 id="sec-7"><span class="section-number-2">7</span> Use case&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<h2 id="sec-7"><span class="section-number-2">7</span> Caso de uso&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 <div class="outline-text-2" id="text-7">
 <p>
-(multiple Web services behind an API gateway, which connects to the outside world)
+Es habitual la siguiente configuración:
 </p>
 
 <p>
-(one of the Web services is misconfigured in debug mode, exposing a <code>/debug</code>
-endpoint, which grants access to all kinds of juicy data.)
+Múltiples servicios Web tras un API gateway, que los expone al mundo exterior.
 </p>
 
 <p>
-(a malicious user can abuse this endpoint to gain access to a lot of sensitive data)
+Uno de los servicios Web está mal configurado, en modo <i>debug</i>, exponiendo un
+endpoint <code>/debug</code> que da acceso a montones de información jugosona.
+</p>
+
+<p>
+Un usuario malicioso puede abusar este <i>endpoint</i> para conseguir acceso a un
+montón de datos sensibles.
 </p>
 </div>
 </div>
+
 
 <div id="outline-container-sec-8" class="outline-2">
-<h2 id="sec-8"><span class="section-number-2">8</span> Detection of unsafe <code>/debug</code> endpoint&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<h2 id="sec-8"><span class="section-number-2">8</span> Detección del endpoint <code>/debug</code> inseguro&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 <div class="outline-text-2" id="text-8">
 <p>
-APICheck tool detecting the <code>/debug</code> endpoint and notifying of the issue.
+Una herramienta de APICheck detecta el <i>endpoint</i> <code>/debug</code> y notifica el
+problema.
 </p>
 </div>
 </div>
 
 <div id="outline-container-sec-9" class="outline-2">
-<h2 id="sec-9"><span class="section-number-2">9</span> OpenAPI spec as Source of Truth&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<h2 id="sec-9"><span class="section-number-2">9</span> a) Especificación OpenAPI como Fuente de Verdad&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 <div class="outline-text-2" id="text-9">
 <p>
-APICheck tool can parse the OpenAPI spec for the Web service and compare it with
-the running instance.  Any discrepancies will be reported by the tool.
+Una herramienta de APICheck puede parsear la especificación OpenAPI del
+servicio Web y compararla con la instancia activa.  La herramienta informará
+de las discrepancias encontradas.
 </p>
 </div>
 </div>
 
 <div id="outline-container-sec-10" class="outline-2">
-<h2 id="sec-10"><span class="section-number-2">10</span> No spec available; capture baseline to which perform comparisons&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<h2 id="sec-10"><span class="section-number-2">10</span> b) No se dispone de especificación; grabación de <i>baseline</i> contra la que realizar comparaciones&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 <div class="outline-text-2" id="text-10">
 <ul class="org-ul">
-<li>@ T<sub>1</sub>, APICheck proxy is used to record a session against the Web service.
+<li>@ T<sub>1</sub>, el <i>proxy</i> APICheck se usa para salvar una sesión contra el servicio
+Web.
 <ul class="org-ul">
-<li>The accessible API is then deduced and stored as a baseline.
+<li>El API accesible se deduce y almacena para que sirva como <i>baseline</i>.
 </li>
 </ul>
 </li>
-<li>@ T<sub>2</sub>, APICheck proxy is used to record another session against the Web service.
+<li>@ T<sub>2</sub>, el proxy APICheck se usa para guardar otra sesión contra el mismo
+servicio Web.
 <ul class="org-ul">
-<li>The resulting accessible API is compared against the baseline.
-</li>
-<li>Any discrepancies are reported.
+<li>Las herramienta informa de las discrepancias que hubiera.
 </li>
 </ul>
 </li>
@@ -335,90 +345,93 @@ the running instance.  Any discrepancies will be reported by the tool.
 </div>
 
 <div id="outline-container-sec-11" class="outline-2">
-<h2 id="sec-11"><span class="section-number-2">11</span> Offline use&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<h2 id="sec-11"><span class="section-number-2">11</span> Uso offline&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 <div class="outline-text-2" id="text-11">
 <ul class="org-ul">
-<li>Suitable for integration in CI/CD workflows.
+<li>Adecuado para integración en <i>workflows</i> de CI/CD.
 </li>
-<li>Given a valid request to the Web service, a number of tools can test for
-different kind of vulnerabilities, such as <code>SQL Injection</code>,
-<a href="http://sqlmap.org/">sqlmap</a>, <code>XSS</code>, etc.
+<li>Dada una <i>request</i> válida para el servicio Web, un número de herramientas
+pueden comprobar diferentes tipos de vulnerabilidades, tales como <code>SQL
+    Injection</code> con <a href="http://sqlmap.org/">sqlmap</a>, <code>XSS</code>, etc.
 </li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-sec-12" class="outline-2">
-<h2 id="sec-12"><span class="section-number-2">12</span> Online use&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<h2 id="sec-12"><span class="section-number-2">12</span> Uso online&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 <div class="outline-text-2" id="text-12">
 <ul class="org-ul">
-<li>Monitor the response before it reaches its destination, and block it if foul
-play is detected.
+<li>Se puede monitorizar la <i>response</i> antes de que alcance su destino, y
+bloquearla si se detectan datos inapropiados.
 </li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-sec-13" class="outline-2">
-<h2 id="sec-13"><span class="section-number-2">13</span> Consistency checking of an API&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<h2 id="sec-13"><span class="section-number-2">13</span> Comprobación de Consistency de un API&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 <div class="outline-text-2" id="text-13">
 <p>
-An APICheck tool can generate requests from the OpenAPI spec of an API,
-looking systematically for corner cases, and being as exhaustive as needed
-(parameterized mala baba).
+Una herramienta de APICheck puede generar <i>requests</i> a partir de la
+especificación OpenAPI de un API, buscando sistemáticamente los <i>corner cases</i>
+y siendo tan exhaustivo como se le pida («mala baba» parametrizada).
 </p>
 </div>
 </div>
 
 <div id="outline-container-sec-14" class="outline-2">
-<h2 id="sec-14"><span class="section-number-2">14</span> Replay of baseline in production&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<h2 id="sec-14"><span class="section-number-2">14</span> Reproducción del <i>baseline</i> en producción&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 <div class="outline-text-2" id="text-14">
 <p>
-The baseline behaviour of a Web service can be obtained during the testing
-phase, and the queries performed then can be replayed against the production
-environment later, and check that the returned information is in line with
-what's expected.
+El comportamiento <i>baseline</i> de un servicio Web puede ser obtenido durante la
+fase de testeo, y las <i>requests</i> realizadas en aquel momento pueden ser
+reenviadas al servicio Web del entorno productivo en un tiempo posterior
+Así, se puede comprobar que las <i>responses</i> que devuelve el servicio Web son
+consistentes con lo esperado.
 </p>
 </div>
 </div>
 
 <div id="outline-container-sec-15" class="outline-2">
-<h2 id="sec-15"><span class="section-number-2">15</span> Tokenize request data on the fly&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<h2 id="sec-15"><span class="section-number-2">15</span> Tokenización de información en la <i>response</i> al vuelo&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 </div>
 
 <div id="outline-container-sec-16" class="outline-2">
-<h2 id="sec-16"><span class="section-number-2">16</span> Online analytics&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<h2 id="sec-16"><span class="section-number-2">16</span> Analítica online&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 <div class="outline-text-2" id="text-16">
 <p>
-APICheck tool that detects anomalous header in the request on the fly.
+Una herramienta APICheck que detecta cabeceras anómalas en la request al
+vuelo.
 </p>
 </div>
 </div>
 
 <div id="outline-container-sec-17" class="outline-2">
-<h2 id="sec-17"><span class="section-number-2">17</span> Forwarding to third-party tools&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
+<h2 id="sec-17"><span class="section-number-2">17</span> Reenvío a herramientas third-party&#xa0;&#xa0;&#xa0;<span class="tag"><span class="badge slide">slide</span></span></h2>
 <div class="outline-text-2" id="text-17">
 <p>
-APICheck tool that forwards req/res to <code>burp=/=zapp</code> without having to
-duplicate the req/res.
+Una herramienta APICheck que reenvía <i>requests///responses</i> a =burp=/=zapp=/
+sin tener que duplicar las susodichas <i>requests//responses</i>.
 </p>
 </div>
 </div>
 
 <div id="outline-container-sec-18" class="outline-2">
-<h2 id="sec-18"><span class="section-number-2">18</span> APICheck is data-centric</h2>
+<h2 id="sec-18"><span class="section-number-2">18</span> APICheck es <i>data-centric</i></h2>
 </div>
 
 <div id="outline-container-sec-19" class="outline-2">
-<h2 id="sec-19"><span class="section-number-2">19</span> To explore</h2>
+<h2 id="sec-19"><span class="section-number-2">19</span> A explorar</h2>
 <div class="outline-text-2" id="text-19">
 <p>
-Multiple respones
+<i>responses</i> múltiples
 </p>
 
 <p>
-Send the same request to and endpoint and check that the response is maintained
-over time, e.g., <code>/config</code>, so no changes to configuration go unnoticed.
+Enviar de la misma <i>request</i> a un <i>endpoint</i> y comprobar que la respuesta se
+mantiene a lo largo del tiempo, por ejemplo, <code>/config</code>, de manera que los
+cambios en la configuración del servicio no pasen desapercibidos.
 </p>
 </div>
 </div>
@@ -430,26 +443,26 @@ over time, e.g., <code>/config</code>, so no changes to configuration go unnotic
 <li><a href="#sec-3">3. Solución del proyecto:</a></li>
 <li><a href="#sec-4">4. Casos de uso:</a></li>
 <li><a href="#sec-5">5. Características principales:</a></li>
-<li><a href="#sec-6">6. Architecture</a></li>
-<li><a href="#sec-7">7. Use case</a></li>
-<li><a href="#sec-8">8. Detection of unsafe <code>/debug</code> endpoint</a></li>
-<li><a href="#sec-9">9. OpenAPI spec as Source of Truth</a></li>
-<li><a href="#sec-10">10. No spec available; capture baseline to which perform comparisons</a></li>
-<li><a href="#sec-11">11. Offline use</a></li>
-<li><a href="#sec-12">12. Online use</a></li>
-<li><a href="#sec-13">13. Consistency checking of an API</a></li>
-<li><a href="#sec-14">14. Replay of baseline in production</a></li>
-<li><a href="#sec-15">15. Tokenize request data on the fly</a></li>
-<li><a href="#sec-16">16. Online analytics</a></li>
-<li><a href="#sec-17">17. Forwarding to third-party tools</a></li>
-<li><a href="#sec-18">18. APICheck is data-centric</a></li>
-<li><a href="#sec-19">19. To explore</a></li>
+<li><a href="#sec-6">6. Arquitectura</a></li>
+<li><a href="#sec-7">7. Caso de uso</a></li>
+<li><a href="#sec-8">8. Detección del endpoint <code>/debug</code> inseguro</a></li>
+<li><a href="#sec-9">9. a) Especificación OpenAPI como Fuente de Verdad</a></li>
+<li><a href="#sec-10">10. b) No se dispone de especificación; grabación de <i>baseline</i> contra la que realizar comparaciones</a></li>
+<li><a href="#sec-11">11. Uso offline</a></li>
+<li><a href="#sec-12">12. Uso online</a></li>
+<li><a href="#sec-13">13. Comprobación de Consistency de un API</a></li>
+<li><a href="#sec-14">14. Reproducción del <i>baseline</i> en producción</a></li>
+<li><a href="#sec-15">15. Tokenización de información en la <i>response</i> al vuelo</a></li>
+<li><a href="#sec-16">16. Analítica online</a></li>
+<li><a href="#sec-17">17. Reenvío a herramientas third-party</a></li>
+<li><a href="#sec-18">18. APICheck es <i>data-centric</i></a></li>
+<li><a href="#sec-19">19. A explorar</a></li>
 </ul>
 </div>
 </nav>
 </div></div></div>
 <footer id="postamble" class="">
-<div><p class="date">Created: 2019-12-01 Sun 19:53</p>
+<div><p class="date">Created: 2019-12-02 Mon 06:16</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="http://orgmode.org">Org-mode</a> 9.2.6)</p>
 </div>
 </footer>

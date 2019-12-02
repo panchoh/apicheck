@@ -33,77 +33,87 @@
   Puede integrarse en el ciclo request/response para bloquear peticiones indebidas
   al vuelo.
 
-* Architecture
+* Arquitectura                                                        :slide:
   [[./API_Test_Diagram.png]]
 
 
-* Use case                                                            :slide:
+* Caso de uso                                                         :slide:
 
-  (multiple Web services behind an API gateway, which connects to the outside world)
+  Es habitual la siguiente configuración:
 
-  (one of the Web services is misconfigured in debug mode, exposing a ~/debug~
-  endpoint, which grants access to all kinds of juicy data.)
+  Múltiples servicios Web tras un API gateway, que los expone al mundo exterior.
 
-  (a malicious user can abuse this endpoint to gain access to a lot of sensitive data)
+  Uno de los servicios Web está mal configurado, en modo /debug/, exponiendo un
+  endpoint ~/debug~ que da acceso a montones de información jugosona.
 
-* Detection of unsafe ~/debug~ endpoint                               :slide:
+  Un usuario malicioso puede abusar este /endpoint/ para conseguir acceso a un
+  montón de datos sensibles.
 
-  APICheck tool detecting the ~/debug~ endpoint and notifying of the issue.
 
-* OpenAPI spec as Source of Truth                                     :slide:
+* Detección del endpoint ~/debug~ inseguro                            :slide:
 
-  APICheck tool can parse the OpenAPI spec for the Web service and compare it with
-  the running instance.  Any discrepancies will be reported by the tool.
+  Una herramienta de APICheck detecta el /endpoint/ ~/debug~ y notifica el
+  problema.
 
-* No spec available; capture baseline to which perform comparisons    :slide:
+* a) Especificación OpenAPI como Fuente de Verdad                     :slide:
 
-  - @ T_1, APICheck proxy is used to record a session against the Web service.
-    - The accessible API is then deduced and stored as a baseline.
-  - @ T_2, APICheck proxy is used to record another session against the Web service.
-    - The resulting accessible API is compared against the baseline.
-    - Any discrepancies are reported.
+  Una herramienta de APICheck puede parsear la especificación OpenAPI del
+  servicio Web y compararla con la instancia activa.  La herramienta informará
+  de las discrepancias encontradas.
 
-* Offline use                                                         :slide:
+* b) No se dispone de especificación; grabación de /baseline/ contra la que realizar comparaciones :slide:
 
-  - Suitable for integration in CI/CD workflows.
-  - Given a valid request to the Web service, a number of tools can test for
-    different kind of vulnerabilities, such as =SQL Injection=,
-    [[http://sqlmap.org/][sqlmap]], =XSS=, etc.
+  - @ T_1, el /proxy/ APICheck se usa para salvar una sesión contra el servicio
+    Web.
+    - El API accesible se deduce y almacena para que sirva como /baseline/.
+  - @ T_2, el proxy APICheck se usa para guardar otra sesión contra el mismo
+    servicio Web.
+    - Las herramienta informa de las discrepancias que hubiera.
 
-* Online use                                                          :slide:
+* Uso offline                                                         :slide:
 
-  - Monitor the response before it reaches its destination, and block it if foul
-    play is detected.
+  - Adecuado para integración en /workflows/ de CI/CD.
+  - Dada una /request/ válida para el servicio Web, un número de herramientas
+    pueden comprobar diferentes tipos de vulnerabilidades, tales como =SQL
+    Injection= con [[http://sqlmap.org/][sqlmap]], =XSS=, etc.
 
-* Consistency checking of an API                                      :slide:
+* Uso online                                                          :slide:
 
-  An APICheck tool can generate requests from the OpenAPI spec of an API,
-  looking systematically for corner cases, and being as exhaustive as needed
-  (parameterized mala baba).
+  - Se puede monitorizar la /response/ antes de que alcance su destino, y
+    bloquearla si se detectan datos inapropiados.
 
-* Replay of baseline in production                                    :slide:
+* Comprobación de Consistency de un API                               :slide:
 
-  The baseline behaviour of a Web service can be obtained during the testing
-  phase, and the queries performed then can be replayed against the production
-  environment later, and check that the returned information is in line with
-  what's expected.
+  Una herramienta de APICheck puede generar /requests/ a partir de la
+  especificación OpenAPI de un API, buscando sistemáticamente los /corner cases/
+  y siendo tan exhaustivo como se le pida («mala baba» parametrizada).
 
-* Tokenize request data on the fly                                    :slide:
+* Reproducción del /baseline/ en producción                           :slide:
 
-* Online analytics                                                    :slide:
+  El comportamiento /baseline/ de un servicio Web puede ser obtenido durante la
+  fase de testeo, y las /requests/ realizadas en aquel momento pueden ser
+  reenviadas al servicio Web del entorno productivo en un tiempo posterior
+  Así, se puede comprobar que las /responses/ que devuelve el servicio Web son
+  consistentes con lo esperado.
 
-  APICheck tool that detects anomalous header in the request on the fly.
+* Tokenización de información en la /response/ al vuelo               :slide:
 
-* Forwarding to third-party tools                                     :slide:
+* Analítica online                                                    :slide:
 
-  APICheck tool that forwards req/res to =burp=/=zapp= without having to
-  duplicate the req/res.
+  Una herramienta APICheck que detecta cabeceras anómalas en la request al
+  vuelo.
 
-* APICheck is data-centric
+* Reenvío a herramientas third-party                                  :slide:
 
-* To explore
+  Una herramienta APICheck que reenvía /requests///responses/ a =burp=/=zapp=/
+  sin tener que duplicar las susodichas /requests//responses/.
 
-Multiple respones
+* APICheck es /data-centric/
 
-Send the same request to and endpoint and check that the response is maintained
-over time, e.g., ~/config~, so no changes to configuration go unnoticed.
+* A explorar
+
+/responses/ múltiples
+
+Enviar de la misma /request/ a un /endpoint/ y comprobar que la respuesta se
+mantiene a lo largo del tiempo, por ejemplo, ~/config~, de manera que los
+cambios en la configuración del servicio no pasen desapercibidos.
