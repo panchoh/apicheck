@@ -1,0 +1,57 @@
+---
+permalink: /
+layout: default
+---
+
+<div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+    <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+            <div class="sidebar">
+
+                <div class="docs-menu">
+                    <h4><a {% if "/docs" != page.url %}style="color: #212529"{% endif %} href="{{ "/docs" | relative_url }}">Documentation home</a></h4>
+                    <br>
+
+                    <h4 {% if site.data.menu_project.url == page.url %}class="active"{% endif %}>{{ site.data.menu_project.menu_title }}</h4>
+                    <ul>
+                        {% for item in site.data.menu_project.menu %}
+                            <li><a href="{{ site.data.menu_project.url | relative_url }}#{{ item.anchor }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <br>
+
+                    <h4 {% if site.data.menu_quickstart.url == page.url %}class="active"{% endif %}>{{ site.data.menu_quickstart.menu_title }}</h4>
+                    <ul>
+                        {% for item in site.data.menu_quickstart.menu %}
+                            <li><a href="{{ site.data.menu_quickstart.url | relative_url }}#{{ item.anchor }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <br>
+
+                    <h4 {% if site.data.menu_developers.url == page.url %}class="active"{% endif %}>{{ site.data.menu_developers.menu_title }}</h4>
+                    <ul>
+                        {% for item in site.data.menu_developers.menu %}
+                            <li><a href="{{ site.data.menu_developers.url | relative_url }}#{{ item.anchor }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <br>
+
+                    <h4>{{ site.data.tools.menu_title }}</h4>
+                    <ul>
+                        {% for item in site.data.tools.menu %}
+                            <li {% if item.url == page.url %}class="active"{% endif %}><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-12 col-md-9">
+            <div class="content">
+                {{ content }}
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
