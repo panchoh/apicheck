@@ -1,34 +1,58 @@
 
-menu_title: Tool list
-
 menu:
 
-  - title: Re-send HTTP Request
+  - title: Replay HTTP Requests
     author: BBVA Labs Security
     home: https://github.com/BBVA/apicheck
-    brief: Send the traffic to the same place, in the same order, with the same params
-    url: /tools/replay
+    brief: Replays a HTTP conversation capturing the new responses obtained
+    type: apicheck
+    url: /tools/apicheck/replay
 
-  - title: Sensitive JSON Finder
+  - title: JWT token validator
     author: BBVA Labs Security
     home: https://github.com/BBVA/apicheck
-    brief: Find sensitive data in JSON content in HTTP Request / Response
-    url: /tools/sensitive-json
+    brief: Validates issued JWT tokens to check for common pitfalls
+    type: apicheck
+    url: /tools/apicheck/jwt-checker
 
-  - title: openapiv3-lint
+  - title: Sensitive data detector
     author: BBVA Labs Security
     home: https://github.com/BBVA/apicheck
-    brief: Lint the endpoint provided using OpenAPI v3 spec
-    url: /tools/openapiv3-lint
+    brief: Find sensitive data in HTTP Request / Response / Headers
+    type: apicheck
+    url: /tools/apicheck/sensitive-data
 
-  - title: Send data to Proxy
+  - title: acurl
     author: BBVA Labs Security
     home: https://github.com/BBVA/apicheck
-    brief: Read request from stdin and send it to proxy
-    url: /tools/send-to-proxy
+    brief: curl with reqres output
+    type: apicheck
+    url: /tools/apicheck/acurl
 
-  - title: openapiv2-lint
+  - title: APICheck proxy
     author: BBVA Labs Security
     home: https://github.com/BBVA/apicheck
-    brief: Lint the endpoint provided using OpenAPI v2 spec
-    url: /tools/openapiv2-lint
+    brief: launch a local proxy and intercept request / responses a perform some actions
+    type: apicheck
+    url: /tools/apicheck/apicheck-proxy
+
+  - title: Send data to a proxy server
+    author: BBVA Labs Security
+    home: https://github.com/BBVA/apicheck
+    brief: Read a request from stdin and send it to a proxy
+    type: apicheck
+    url: /tools/apicheck/send-to-proxy
+
+  - title: OpenAPI v3 Linter
+    author: BBVA Labs Security
+    home: https://github.com/BBVA/apicheck
+    brief: Lint the endpoint specification provided using OpenAPI v3 spec
+    type: edge
+    url: /tools/edge/openapiv3-lint
+
+  - title: OpenAPI v2 Linter
+    author: BBVA Labs Security
+    home: https://github.com/BBVA/apicheck
+    brief: Lint the endpoint specification provided using OpenAPI v2 spec
+    type: edge
+    url: /tools/edge/openapiv2-lint
